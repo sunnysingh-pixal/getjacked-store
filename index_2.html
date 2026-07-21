@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Jacked — Gym Supplements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F0EB;
+    --ink:#17181A;
+    --accent:#FF4D23;
+    --stone:#8C877A;
+    --line:#DAD5C9;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- layout helpers ---------- */
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+  section{padding:80px 0;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 24px;max-width:1100px;margin:0 auto;
+  }
+  .logo{
+    font-family:'Anton',sans-serif;
+    font-size:22px;
+    letter-spacing:0.5px;
+  }
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:32px;font-size:14px;font-weight:500;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{
+    background:var(--ink);color:var(--bg);
+    padding:10px 18px;font-size:13px;font-weight:600;
+    border-radius:2px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .nav-cta:hover{background:var(--accent);}
+  @media(max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{padding:100px 0 70px;}
+  .hero .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(44px,8vw,96px);
+    max-width:900px;
+  }
+  .hero h1 em{font-style:normal;color:var(--accent);}
+  .hero p{
+    max-width:480px;margin-top:24px;
+    color:var(--stone);font-size:17px;
+  }
+  .hero-cta{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 26px;font-size:14px;font-weight:600;
+    border-radius:2px;border:1px solid var(--ink);
+  }
+  .btn-solid{background:var(--ink);color:var(--bg);}
+  .btn-solid:hover{background:var(--accent);border-color:var(--accent);}
+  .btn-outline{background:transparent;color:var(--ink);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  .hero-strip{
+    margin-top:60px;padding-top:28px;border-top:1px solid var(--line);
+    display:flex;gap:48px;flex-wrap:wrap;
+  }
+  .hero-strip div{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--stone);}
+  .hero-strip strong{display:block;color:var(--ink);font-size:15px;margin-bottom:2px;}
+
+  /* ---------- products ---------- */
+  .section-head{margin-bottom:44px;}
+  .section-head .tag{
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    letter-spacing:2px;text-transform:uppercase;color:var(--accent);
+    margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(30px,5vw,48px);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:24px;
+  }
+
+  .product{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .product-media{
+    aspect-ratio:1/1;
+    background:var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Anton',sans-serif;
+    font-size:15px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--stone);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .product-body{padding:20px;flex:1;display:flex;flex-direction:column;}
+  .product-name{font-size:19px;font-weight:600;font-family:'Work Sans';margin-bottom:2px;}
+  .product-flavor{font-size:13px;color:var(--stone);margin-bottom:14px;}
+
+  .spec{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    border-top:2px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    padding:10px 0;
+    margin-bottom:14px;
+  }
+  .spec-title{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-bottom:6px;}
+  .spec-row{display:flex;justify-content:space-between;padding:3px 0;border-top:1px dashed var(--line);color:var(--stone);}
+  .spec-row:first-of-type{border-top:none;}
+  .spec-row span:last-child{color:var(--ink);}
+
+  .product-footer{
+    margin-top:auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:6px;
+  }
+  .price{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;}
+  .order-btn{
+    background:var(--ink);color:var(--bg);
+    font-size:12px;font-weight:600;
+    padding:10px 14px;border-radius:2px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .order-btn:hover{background:var(--accent);}
+
+  /* ---------- why ---------- */
+  .why{background:var(--ink);color:var(--bg);}
+  .why .section-head .tag{color:var(--accent);}
+  .why-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:36px;margin-top:20px;
+  }
+  .why-item .num{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:13px;margin-bottom:10px;}
+  .why-item h3{font-size:20px;font-family:'Work Sans';font-weight:600;text-transform:none;margin-bottom:8px;}
+  .why-item p{color:#B8B4A8;font-size:14px;}
+
+  /* ---------- how it works ---------- */
+  .how-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:0;border-top:1px solid var(--line);margin-top:20px;
+  }
+  .how-item{
+    padding:28px 20px 28px 0;border-bottom:1px solid var(--line);
+  }
+  .how-item .mono{color:var(--accent);font-size:13px;display:block;margin-bottom:10px;}
+  .how-item h3{font-size:18px;font-family:'Work Sans';font-weight:600;text-transform:none;margin-bottom:6px;}
+  .how-item p{color:var(--stone);font-size:14px;}
+
+  /* ---------- contact / footer ---------- */
+  .contact{
+    background:var(--card);border:1px solid var(--line);border-radius:4px;
+    padding:48px;display:flex;justify-content:space-between;align-items:center;
+    gap:24px;flex-wrap:wrap;
+  }
+  .contact h2{font-size:clamp(28px,4vw,42px);max-width:480px;}
+  footer{border-top:1px solid var(--line);padding:32px 0;}
+  .footer-row{
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:12px;
+    font-size:13px;color:var(--stone);
+  }
+
+  /* ---------- floating whatsapp ---------- */
+  .float-wa{
+    position:fixed;bottom:22px;right:22px;z-index:60;
+    background:#25D366;color:#fff;
+    width:56px;height:56px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,0.25);
+  }
+  .float-wa svg{width:26px;height:26px;fill:#fff;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">GET<span>JACKED</span></div>
+    <nav class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#why">Why us</a>
+      <a href="#how">How to order</a>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/919279250494?text=Hi%2C%20I%27d%20like%20to%20order%20from%20Get%20Jacked" target="_blank">
+      Order on WhatsApp
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">/// fuel the grind</div>
+    <h1>Supplements<br>built for the<br><em>next rep.</em></h1>
+    <p>Lab-tested protein, creatine and pre-workout — sourced clean, priced fair, and shipped straight from Get Jacked. No middlemen, no fluff.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#products">Shop products</a>
+      <a class="btn btn-outline" href="https://wa.me/919279250494" target="_blank">Chat on WhatsApp</a>
+    </div>
+    <div class="hero-strip">
+      <div><strong>100%</strong>Lab-tested batches</div>
+      <div><strong>24–48h</strong>Local dispatch</div>
+      <div><strong>500+</strong>Lifters supplied</div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">/// the lineup</div>
+      <h2>Pick your stack.</h2>
+    </div>
+
+    <div class="grid" style="grid-template-columns:minmax(240px,340px);">
+
+      <!-- Product 1 -->
+      <div class="product">
+        <div class="product-media"><img src="images/jacked-whey.png" alt="Jacked Whey - Chocolate flavor, 1kg" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="product-body">
+          <div class="product-name">Jacked Whey</div>
+          <div class="product-flavor">Chocolate · 1kg · 33 servings</div>
+          <div class="spec">
+            <div class="spec-title">Per serving (30g)</div>
+            <div class="spec-row"><span>Protein</span><span>24g</span></div>
+            <div class="spec-row"><span>Added sugar</span><span>0g</span></div>
+            <div class="spec-row"><span>Gluten</span><span>Free</span></div>
+          </div>
+          <div class="product-footer">
+            <div class="price">₹2,199</div>
+            <a class="order-btn" href="https://wa.me/919279250494?text=Hi%2C%20I%27d%20like%20to%20order%20Jacked%20Whey%20(Chocolate%2C%201kg)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">/// why get jacked</div>
+      <h2>No shortcuts.<br>Just results.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="num mono">01</div>
+        <h3>Third-party tested</h3>
+        <p>Every batch is verified for purity before it reaches your door — no hidden fillers, no surprises.</p>
+      </div>
+      <div class="why-item">
+        <div class="num mono">02</div>
+        <h3>Direct pricing</h3>
+        <p>We sell straight to you over WhatsApp, cutting out retail markups other brands pass on to you.</p>
+      </div>
+      <div class="why-item">
+        <div class="num mono">03</div>
+        <h3>Real support</h3>
+        <p>Message us anytime for dosage advice, stacking tips, or help picking the right product for your goal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">/// how to order</div>
+      <h2>Three steps. Zero hassle.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-item">
+        <span class="mono">Step 1</span>
+        <h3>Pick your product</h3>
+        <p>Browse the lineup above and decide on your flavour and size.</p>
+      </div>
+      <div class="how-item">
+        <span class="mono">Step 2</span>
+        <h3>Tap order</h3>
+        <p>Hit the order button — it opens WhatsApp with your item pre-filled.</p>
+      </div>
+      <div class="how-item">
+        <span class="mono">Step 3</span>
+        <h3>Confirm and pay</h3>
+        <p>We confirm your address and payment over chat, then ship within 24–48h.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="contact">
+      <h2>Ready to<br>get jacked?</h2>
+      <a class="btn btn-solid" href="https://wa.me/919279250494?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Get%20Jacked%20supplements" target="_blank">Message us on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>© 2026 Get Jacked. All rights reserved.</div>
+    <div>Patna, Bihar · Reply time: usually under 1 hour</div>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/919279250494" target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.35a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.91S17.5 2 12.04 2zm5.8 14.15c-.24.68-1.42 1.3-1.96 1.38-.5.08-1.13.11-1.83-.12-.42-.14-.96-.32-1.65-.62-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.15.07.14.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.75 1.24 1.61 2 1.1.98 2.03 1.29 2.32 1.43.29.14.46.12.63-.07.17-.19.72-.83.91-1.12.19-.29.38-.24.63-.14.26.1 1.65.78 1.93.92.29.14.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+</a>
+
+</body>
+</html>
